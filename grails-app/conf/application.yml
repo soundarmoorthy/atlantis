@@ -3,6 +3,12 @@ grails:
     profile: rest-api
     codegen:
         defaultPackage: atlantis
+    databinding:
+        dateFormats:
+            - "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            - "yyyy-MM-dd'T'HH:mm:ss.S"
+            - "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+            - "yyyy-MM-dd'T'HH:mm:ss.SXXX"
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
