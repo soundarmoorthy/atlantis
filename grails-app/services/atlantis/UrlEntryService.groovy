@@ -1,33 +1,44 @@
 package atlantis
 
+import grails.core.GrailsApplication
 import grails.gorm.transactions.Transactional
 
 @Transactional
 class UrlEntryService {
 
-    def createURL(UrlEntry obj) {
+    GrailsApplication grailsApplication;
 
-        def url = obj.getOriginalUrl();
+    def createOrGetUrl(UrlEntry source) {
+        def url = source.getOriginalUrl();
         UrlEntry entry =  UrlEntry.findByOriginalUrl(url) ;
 
         if(entry !=null){
-            return existing(entry);
+            return entry;
         }
 
-        return createNewUrlEntry(url)
+        return create(source)
     }
 
-    def createNewUrlEntry(String url) {
-        def entry = new UrlEntry();
-        entry.setOriginalUrl(url);
-        entry.setId(getNewId());
-        entry.setShortUrl("https://atlant.is/${entry.getId()}");
-        entry.setDateCreated(new Date());
-        entry.refreshExpiryDate();
-        entry.save();
-        return entry;
+    def getRedirectUrl(int id) {
+        def obj = UrlEntry.get(id);
+        if(obj !=null)
+            return obj.getOriginalUrl();
+
+        return null;
     }
 
+    def create(UrlEntry source) {
+        def id = getNewId();
+        source.setId(id)
+        def baseUrl = grailsApplication.config.getProperty('grails.serverURL');
+        source.setShortUrl("$baseUrl/$id");
+
+        if(source.getExpiryDate() != null)
+            source.refreshExpiryDate();
+
+        source.save();
+        return source;
+    }
 
     def getNewId(){
         def items = UrlEntry.withCriteria {
@@ -40,11 +51,5 @@ class UrlEntryService {
             return items.get(0) + 1;
         else
             return 1;
-    }
-
-    def existing(UrlEntry entry) {
-        entry.refreshExpiryDate();
-        entry.save();
-        return entry;
     }
 }
