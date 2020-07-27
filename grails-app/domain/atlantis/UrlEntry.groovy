@@ -10,6 +10,12 @@ class UrlEntry implements  GormEntity<UrlEntry>
     Date dateCreated;
     Date expiryDate;
 
+    public void refreshExpiryDate() {
+        Date base = dateCreated ? dateCreated : new Date();
+        expiryDate = base.plus(30);
+    }
+
+
     static mapping = {
     }
 

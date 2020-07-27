@@ -12,15 +12,14 @@ class UrlEntryController extends RestfulController {
     }
 
     def save() {
-        def id = urlEntryService.createURL(params.originalUrl);
-        def urlEntry = UrlEntry.get(id);
-        if (!urlEntry)
+        def obj = new UrlEntry(params);
+        def res = urlEntryService.createURL(obj);
+
+        if(res == null)
             response.sendError 500
         else
             withFormat {
-                json { render urlEntry as JSON }
+                json { render res as JSON }
             }
     }
-
-
 }

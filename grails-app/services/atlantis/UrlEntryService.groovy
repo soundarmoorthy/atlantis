@@ -5,16 +5,27 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class UrlEntryService {
 
-    def createURL(String originalUrl) {
+    def createURL(UrlEntry obj) {
+
+        def url = obj.getOriginalUrl();
+        UrlEntry entry =  UrlEntry.findByOriginalUrl(url) ;
+
+        if(entry !=null){
+            return existing(entry);
+        }
+
+        return createNewUrlEntry(url)
+    }
+
+    def createNewUrlEntry(String url) {
         def entry = new UrlEntry();
-        entry.setOriginalUrl(originalUrl);
-        def id = this.getNewId();
-        entry.setId(id);
-        entry.setShortUrl("http://atlant.is/$id");
+        entry.setOriginalUrl(url);
+        entry.setId(getNewId());
+        entry.setShortUrl("https://atlant.is/${entry.getId()}");
         entry.setDateCreated(new Date());
-        entry.setExpiryDate(new Date().plus(30));
+        entry.refreshExpiryDate();
         entry.save();
-        return entry.getId();
+        return entry;
     }
 
 
@@ -28,6 +39,12 @@ class UrlEntryService {
         if(items?.any())
             return items.get(0) + 1;
         else
-            return 0;
+            return 1;
+    }
+
+    def existing(UrlEntry entry) {
+        entry.refreshExpiryDate();
+        entry.save();
+        return entry;
     }
 }
