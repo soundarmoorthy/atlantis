@@ -12,6 +12,8 @@ class UrlEntrySpec extends Specification implements DomainUnitTest<UrlEntry> {
     }
 
     void "test something"() {
+        def entry = new UrlEntry();
+
         expect:"fix me"
             true == false
     }

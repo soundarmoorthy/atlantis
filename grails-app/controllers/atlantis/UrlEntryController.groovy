@@ -25,10 +25,11 @@ class UrlEntryController extends RestfulController implements PluginManagerAware
     def redirect(int id) {
         def url = urlEntryService.getRedirectUrl(id);
 
-        if(url == null)
+        if(url == null) {
             response.sendError 404
+        }
 
-        redirect url: url
+        redirect url: url, permanent:true
         return;
 
     }

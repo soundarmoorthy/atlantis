@@ -38,8 +38,10 @@ class UrlEntryService {
         if(newEntry.getExpiryDate() == null)
             newEntry.updateExpiryDate();
 
-        def res = newEntry.save();
-        return newEntry;
+        if(newEntry.save())
+            return newEntry;
+        else
+            newEntry.errors.allErrors.each {it.defaultMessage}
     }
 
     def getNewId(){

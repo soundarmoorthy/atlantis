@@ -15,4 +15,16 @@ class UrlEntryServiceSpec extends Specification implements ServiceUnitTest<UrlEn
         expect:"fix me"
             true == false
     }
+
+    void "creates a valid entry and returns short url"() {
+
+    }
+
+    void "returns existing entry when already present"() {
+
+    }
+
+    void "created url entry has expiry date of 30 days"() {
+
+    }
 }
