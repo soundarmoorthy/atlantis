@@ -38,7 +38,7 @@ class UrlEntryService {
         if(newEntry.getExpiryDate() == null)
             newEntry.updateExpiryDate();
 
-        newEntry.save();
+        def res = newEntry.save();
         return newEntry;
     }
 

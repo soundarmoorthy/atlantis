@@ -4,7 +4,8 @@ class UrlMappings {
 
     static mappings = {
         post "/$controller(.$format)?"(action:"save")
-        post "/u/$id"(controller: 'UrlEntry', action: 'redirect')
+
+        get "/u/$id"(controller: 'urlEntry', action: 'redirect')
 
         "/"(controller: 'UrlEntry', action:'index')
         "500"(view: '/error')

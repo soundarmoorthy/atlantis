@@ -1,5 +1,6 @@
 ---
 grails:
+    serverURL: http://localhost:8080
     profile: rest-api
     codegen:
         defaultPackage: atlantis
@@ -10,6 +11,8 @@ grails:
             - "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
             - "yyyy-MM-dd'T'HH:mm:ss.SXXX"
     gorm:
+        failOnError: true
+        autoFlush : true
         reactor:
             # Whether to translate GORM events into Reactor events
             # Disabled by default for performance reasons
@@ -83,12 +86,9 @@ dataSource:
 
 environments:
     development:
-        grails:
-            serverURL : http://localhost:8080
         dataSource:
             dbCreate: create-drop
             url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-
     test:
         dataSource:
             dbCreate: update

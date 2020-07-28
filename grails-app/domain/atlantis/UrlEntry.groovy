@@ -2,7 +2,7 @@ package atlantis
 
 import org.grails.datastore.gorm.GormEntity
 
-class UrlEntry implements  GormEntity<UrlEntry>
+class UrlEntry implements GormEntity<UrlEntry>
 {
     int id;
     String originalUrl;
@@ -20,8 +20,5 @@ class UrlEntry implements  GormEntity<UrlEntry>
     }
 
     static constraints = {
-        id blank:false, nullable:false, unique : true
-        expiryDate blank:false, nullable : false
-        shortUrl blank:false, nullable: false, url : true
     }
 }
