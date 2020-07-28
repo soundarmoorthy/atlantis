@@ -10,13 +10,12 @@ class UrlEntryService {
 
     def createOrGetUrl(UrlEntry source) {
         def url = source.getOriginalUrl();
-        UrlEntry entry =  UrlEntry.findByOriginalUrl(url) ;
+        def created =  UrlEntry.findByOriginalUrl(url);
 
-        if(entry !=null){
-            return entry;
-        }
+        if(created !=null)
+            return created;
 
-        return create(source)
+        return create(source);
     }
 
     def getRedirectUrl(int id) {
@@ -27,17 +26,20 @@ class UrlEntryService {
         return null;
     }
 
-    def create(UrlEntry source) {
+    def create(UrlEntry fromRequest ) {
+        UrlEntry newEntry = new UrlEntry();
         def id = getNewId();
-        source.setId(id)
+        newEntry.setId(id)
         def baseUrl = grailsApplication.config.getProperty('grails.serverURL');
-        source.setShortUrl("$baseUrl/$id");
+        newEntry.setShortUrl("$baseUrl/u/$id");
+        newEntry.setOriginalUrl(fromRequest.getOriginalUrl());
+        newEntry.setDateCreated(new Date());
 
-        if(source.getExpiryDate() != null)
-            source.refreshExpiryDate();
+        if(newEntry.getExpiryDate() == null)
+            newEntry.updateExpiryDate();
 
-        source.save();
-        return source;
+        newEntry.save();
+        return newEntry;
     }
 
     def getNewId(){

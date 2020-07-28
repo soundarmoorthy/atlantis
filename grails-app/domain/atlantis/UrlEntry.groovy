@@ -10,7 +10,7 @@ class UrlEntry implements  GormEntity<UrlEntry>
     Date dateCreated;
     Date expiryDate;
 
-    public void refreshExpiryDate() {
+    public void updateExpiryDate() {
         Date base = dateCreated ? dateCreated : new Date();
         expiryDate = base.plus(30);
     }

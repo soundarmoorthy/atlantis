@@ -1,25 +1,35 @@
 package atlantis
 
+import grails.core.GrailsApplication
+import grails.plugins.*
 import grails.rest.*
 import grails.converters.*
 
-class UrlEntryController extends RestfulController {
+class UrlEntryController extends RestfulController implements PluginManagerAware {
     static responseFormats = ['json']
-    static allowedMethods  =  [redirect : 'GET', save : 'POST'];
 
     UrlEntryService urlEntryService;
+
+    GrailsApplication grailsApplication;
+    GrailsPluginManager pluginManager;
+
     UrlEntryController() {
         super(UrlEntry)
     }
 
-    def redirect(int id){
+    def index(){
+        [grailsApplication: grailsApplication, pluginManager: pluginManager]
 
-        def originalUrl = urlEntryService.getRedirectUrl(id);
+    }
 
-        if(originalUrl == null)
+    def redirect(int id) {
+        def url = urlEntryService.getRedirectUrl(id);
+
+        if(url == null)
             response.sendError 404
 
-        redirect(url: shortUrl);
+        redirect url: url
+        return;
 
     }
 

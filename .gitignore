@@ -7,6 +7,7 @@
 
 # web application files
 /web-app/WEB-INF/classes
+.DS_Store
 
 # default HSQL database files
 /prodDb.*
