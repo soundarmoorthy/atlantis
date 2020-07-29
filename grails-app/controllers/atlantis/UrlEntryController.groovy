@@ -4,9 +4,7 @@ import grails.core.GrailsApplication
 import grails.plugins.*
 import grails.rest.*
 import grails.converters.*
-import groovy.util.logging.Slf4j
 
-@Slf4j
 class UrlEntryController extends RestfulController implements PluginManagerAware {
     static responseFormats = ['json']
 
