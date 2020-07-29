@@ -33,4 +33,6 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
     }
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 }
-root(ERROR, ['STDOUT'])
+root(INFO, ['STDOUT'])
+
+logger 'atlantis',INFO, ['STDOUT','FULL_STACKTRACE'], false

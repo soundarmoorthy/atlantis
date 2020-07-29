@@ -4,7 +4,9 @@ import grails.core.GrailsApplication
 import grails.plugins.*
 import grails.rest.*
 import grails.converters.*
+import groovy.util.logging.Slf4j
 
+@Slf4j
 class UrlEntryController extends RestfulController implements PluginManagerAware {
     static responseFormats = ['json']
 
@@ -35,9 +37,10 @@ class UrlEntryController extends RestfulController implements PluginManagerAware
     }
 
     def save() {
-        def obj = new UrlEntry();
+        log.info "In save for processing : {}", request.JSON.urlEntry
+        def obj = new UrlEntry()
         bindData(obj, request.JSON.urlEntry, [include: ['originalUrl', 'expiryDate']])
-        def res = urlEntryService.createOrGetUrl(obj);
+        def res = urlEntryService.createOrGetUrl(obj)
 
         withFormat {
             json { render res as JSON }

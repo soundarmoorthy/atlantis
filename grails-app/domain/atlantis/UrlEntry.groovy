@@ -15,7 +15,6 @@ class UrlEntry implements GormEntity<UrlEntry>
         expiryDate = base.plus(30);
     }
 
-
     static mapping = {
         cache usage: 'read-write', include : 'non-lazy'
     }
