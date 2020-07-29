@@ -36,7 +36,7 @@ class UrlEntryController extends RestfulController implements PluginManagerAware
 
     def save() {
         def obj = new UrlEntry();
-        bindData(obj, params, [include: ['originalUrl', 'expiryDate']])
+        bindData(obj, request.JSON.urlEntry, [include: ['originalUrl', 'expiryDate']])
         def res = urlEntryService.createOrGetUrl(obj);
 
         withFormat {
