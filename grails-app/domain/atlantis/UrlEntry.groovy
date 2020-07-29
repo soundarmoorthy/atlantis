@@ -20,5 +20,9 @@ class UrlEntry implements GormEntity<UrlEntry>
     }
 
     static constraints = {
+        originalUrl nullable:false, blank:false, unique:true
+        shortUrl nullable:false, blank:false, unique:true
+        dateCreated nullable:false, blank:false
+        expiryDate nullable:false, blank : false
     }
 }
