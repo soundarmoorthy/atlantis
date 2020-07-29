@@ -24,7 +24,9 @@ repositories {
     maven { url "https://repo.grails.org/grails/core" }
 }
 
+
 dependencies {
+    compile "org.hibernate:hibernate-ehcache:5.1.17.Final"
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"

@@ -17,6 +17,7 @@ class UrlEntry implements GormEntity<UrlEntry>
 
 
     static mapping = {
+        cache usage: 'read-write', include : 'non-lazy'
     }
 
     static constraints = {

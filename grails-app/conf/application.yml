@@ -74,9 +74,12 @@ grails:
 ---
 hibernate:
     cache:
-        queries: false
-        use_second_level_cache: false
-        use_query_cache: false
+        queries: true
+        use_second_level_cache: true
+        provider_class: net.sf.ehcache.hibernate.EhCacheProvider
+        region:
+            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+        use_query_cache: true
 dataSource:
     pooled: true
     jmxExport: true
